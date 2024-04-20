@@ -2,27 +2,19 @@ package jsonanalyze
 
 import (
 	"encoding/json"
-	"fmt"
-	"os"
 )
 
-func AnalyzeAWSIAMROLEJSON(filePath string) (bool, error) {
-	jsonFile, err := os.Open(filePath)
+func AnalyzeAWSIAMROLEJSON(jsonData string) (bool, error) {
+	var policy IAMRolePolicy
+	err := json.Unmarshal([]byte(jsonData), &policy)
 	if err != nil {
 		return false, err
 	}
 
-	defer func() {
-		if err := jsonFile.Close(); err != nil {
-			fmt.Printf("Error closing file: %v\n", err)
-		}
-	}()
-
-	var data map[string]interface{}
-	if err := json.NewDecoder(jsonFile).Decode(&data); err != nil {
+	if err := policy.Validate(); err != nil {
 		return false, err
 	}
 
-	fmt.Println(data)
-	return true, nil
+	isSingleAsterisk := policy.PolicyDocument.Statement[0].Resource != "*"
+	return isSingleAsterisk, nil
 }
