@@ -10,7 +10,8 @@
                     "iam:ListRoles",
                     "iam:ListUsers"
                 ],
-                "Resource": "**"
+                "NotAction": [],
+                "Resource": "*"
             }
         ]
     }
