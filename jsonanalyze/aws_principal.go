@@ -6,7 +6,7 @@ import (
 )
 
 type Principal struct {
-	AWS           interface{} `json:"AWS"`
+	AWS           interface{} `json:"AWS"` //can be given either as list or str
 	CanonicalUser string      `json:"CanonicalUser"`
 }
 

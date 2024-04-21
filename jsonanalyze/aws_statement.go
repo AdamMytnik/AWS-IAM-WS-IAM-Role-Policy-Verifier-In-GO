@@ -18,7 +18,7 @@ type Statement struct {
 	NotAction    []string  `json:"NotAction"`
 	Resource     Resource  `json:"Resource"`    // (Required in only some circumstances)
 	NotResource  Resource  `json:"NotResource"` // you must provide at least one of them
-	Principal    Principal `json:"Principal"`   // (Required in only some circumstances) TODO
+	Principal    Principal `json:"Principal"`   // Optional for IAM::ROLE policy
 	NotPrincipal Principal `json:"NotPrincipal"`
 	Condition    string    `json:"Condition"` //Optional
 }
