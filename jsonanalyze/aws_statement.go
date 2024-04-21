@@ -12,13 +12,13 @@ Other pairs that are mutually exclusive include Principal/NotPrincipal and Resou
 */
 
 type Statement struct {
-	Sid          string   `json:"Sid"` //Optional but should be unique in Policy
-	Effect       string   `json:"Effect"`
-	Action       []string `json:"Action"`
+	Sid          string   `json:"Sid"`    //Optional but should be unique in Policy
+	Effect       string   `json:"Effect"` //Required
+	Action       []string `json:"Action"` //Required
 	NotAction    []string `json:"NotAction"`
-	Resource     string   `json:"Resource"` //(Required in only some circumstances) TODO
-	NotResource  string   `json:"NotResource"`
-	Principal    string   `json:"Principal"` // (Required in only some circumstances) TODO
+	Resource     string   `json:"Resource"`    //(Required in only some circumstances)
+	NotResource  string   `json:"NotResource"` // you must provide at least one of them
+	Principal    string   `json:"Principal"`   // (Required in only some circumstances) TODO
 	NotPrincipal string   `json:"NotPrincipal"`
 	Condition    string   `json:"Condition"` //Optional
 }
@@ -40,7 +40,7 @@ func (s *Statement) Validate() error {
 		validationErrors = append(validationErrors, fmt.Errorf("either Principal or NotPrincipal can be specified in the statement"))
 	}
 
-	if s.Resource != "" && s.NotResource != "" {
+	if (s.Resource == "" && s.NotResource == "") || (s.Resource != "" && s.NotResource != "") {
 		validationErrors = append(validationErrors, fmt.Errorf("either Resource or NotResource can be specified in the statement"))
 	}
 
