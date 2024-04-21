@@ -11,7 +11,7 @@
                     "iam:ListUsers"
                 ],
                 "NotAction": [],
-                "Resource": "*" 
+                "Resource": "*"
             }
         ]
     }

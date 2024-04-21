@@ -11,7 +11,7 @@
                     "iam:ListUsers"
                 ],
                 "Resource": "arn:aws:iam::account-ID-without-hyphens:user/Bob",
-                "NotResource": "arn:aws:s3:::HRBucket/Payroll/*"
+                "NotResource": ["arn:aws:s3:::HRBucket/Payroll/*"]
             }
         ]
     }
