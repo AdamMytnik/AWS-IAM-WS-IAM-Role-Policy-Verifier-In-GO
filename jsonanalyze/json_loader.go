@@ -2,6 +2,7 @@ package jsonanalyze
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
 )
@@ -28,4 +29,17 @@ func LoadJsonFromFile(filePath string) (string, error) {
 	}
 
 	return jsonData, nil
+}
+
+func PrintJSON(jsonData string) error {
+	var data map[string]interface{}
+	if err := json.Unmarshal([]byte(jsonData), &data); err != nil {
+		return err
+	}
+	prettyJSON, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return err
+	}
+	fmt.Println(string(prettyJSON))
+	return nil
 }
